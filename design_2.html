@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HES Asia — Foundations for Healthcare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1F3A;
+    --navy-2:#0F2A4D;
+    --paper:#F4F6F5;
+    --teal:#0E7C7B;
+    --teal-light:#1AA3A0;
+    --pulse:#FF5A36;
+    --ink:#101820;
+    --slate:#5B6B73;
+    --line:#D8DFDD;
+    --line-dark:rgba(255,255,255,.14);
+    --serif:'Space Grotesk',sans-serif;
+    --body:'IBM Plex Sans',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--teal-light);
+    display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--pulse);display:inline-block;}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;color:var(--navy);}
+  section{position:relative;}
+  ::selection{background:var(--pulse);color:#fff;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(11,31,58,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-dark);
+    transition:transform .4s ease;
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;max-width:1180px;margin:0 auto;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:700;color:#fff;font-size:18px;letter-spacing:.02em;}
+  .brand .mark{width:26px;height:26px;flex:0 0 auto;}
+  .navlinks{display:flex;gap:34px;align-items:center;}
+  .navlinks a{
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(255,255,255,.7); position:relative; padding:4px 0;
+    transition:color .2s ease;
+  }
+  .navlinks a:hover{color:#fff;}
+  .navlinks a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--pulse);transition:width .25s ease;}
+  .navlinks a:hover::after{width:100%;}
+  .nav-cta{
+    font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--navy);background:#fff;padding:10px 18px;border-radius:2px;
+    border:1px solid #fff;transition:all .2s ease;
+  }
+  .nav-cta:hover{background:transparent;color:#fff;}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;}
+  .burger span{width:22px;height:1.5px;background:#fff;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      radial-gradient(ellipse at 75% 20%, rgba(14,124,123,.35), transparent 55%),
+      linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);
+    min-height:100vh;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    padding-top:120px;
+    overflow:hidden;
+  }
+  .blueprint{
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:linear-gradient(180deg, rgba(0,0,0,.9), rgba(0,0,0,.15) 80%);
+  }
+  .hero-inner{position:relative;z-index:2;padding-bottom:64px;}
+  .hero h1{
+    color:#fff;font-size:clamp(40px,6vw,84px);line-height:1.02;letter-spacing:-.02em;
+    margin:22px 0 26px;max-width:920px;
+  }
+  .hero h1 em{font-style:normal;color:var(--teal-light);}
+  .hero p.lede{font-family:var(--body);font-weight:400;font-size:18px;color:rgba(255,255,255,.68);max-width:520px;margin-bottom:40px;}
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:60px;}
+  .btn{
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;
+    padding:14px 26px;border-radius:2px;display:inline-flex;align-items:center;gap:10px;
+    transition:all .22s ease;border:1px solid transparent;
+  }
+  .btn-primary{background:var(--pulse);color:#fff;}
+  .btn-primary:hover{background:#e04a29;}
+  .btn-ghost{border-color:rgba(255,255,255,.35);color:#fff;}
+  .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.06);}
+
+  .vitals{
+    position:relative;border-top:1px solid var(--line-dark);
+    display:grid;grid-template-columns:repeat(4,1fr);
+  }
+  .vitals .cell{padding:26px 0 26px 0;position:relative;}
+  .vitals .cell + .cell{border-left:1px solid var(--line-dark);padding-left:28px;}
+  .vitals .num{font-family:var(--mono);color:#fff;font-size:clamp(24px,2.6vw,34px);display:flex;align-items:baseline;gap:3px;}
+  .vitals .num span{color:var(--teal-light);}
+  .vitals .label{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:6px;}
+
+  .pulse-line{position:absolute;top:0;left:0;width:100%;height:44px;pointer-events:none;}
+  .pulse-line path{
+    fill:none;stroke:var(--pulse);stroke-width:1.6;
+    stroke-dasharray:900; stroke-dashoffset:900;
+    animation:draw 2.6s ease forwards .4s;
+  }
+  @keyframes draw{to{stroke-dashoffset:0;}}
+
+  /* ---------- MARQUEE ---------- */
+  .marquee-wrap{background:var(--navy);border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);overflow:hidden;padding:16px 0;}
+  .marquee{display:flex;gap:56px;white-space:nowrap;animation:scroll 26s linear infinite;width:max-content;}
+  .marquee span{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);}
+  .marquee span b{color:rgba(255,255,255,.85);font-weight:500;}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ---------- SECTION HEADS ---------- */
+  .section{padding:120px 0;}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:64px;flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(30px,3.4vw,46px);max-width:640px;}
+  .section-head p{color:var(--slate);max-width:360px;font-size:15px;}
+
+  /* ---------- ABOUT ---------- */
+  .about{background:#fff;}
+  .about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:80px;align-items:start;}
+  .about-copy p{color:var(--slate);font-size:16.5px;margin-bottom:20px;max-width:520px;}
+  .readouts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .readout{background:var(--paper);padding:28px 24px;}
+  .readout .n{font-family:var(--mono);font-size:38px;color:var(--teal);font-weight:500;}
+  .readout .n sup{font-size:16px;top:-1.1em;}
+  .readout .l{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--slate);margin-top:8px;}
+
+  /* ---------- SERVICES / SCHEMATIC ---------- */
+  .services{background:var(--paper);}
+  .schematic{position:relative;}
+  .modules{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);}
+  .module{
+    background:#fff;padding:44px 34px;position:relative;
+    border-right:1px solid var(--line);
+    transition:background .25s ease;
+  }
+  .module:last-child{border-right:none;}
+  .module::before{
+    content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:var(--line);
+    transition:background .25s ease;
+  }
+  .module:hover::before{background:var(--pulse);}
+  .module:hover{background:var(--navy);}
+  .module:hover h3, .module:hover p, .module:hover .mod-index{color:#fff;}
+  .mod-index{font-family:var(--mono);font-size:12px;color:var(--teal);letter-spacing:.05em;transition:color .25s ease;}
+  .module h3{font-size:22px;margin:18px 0 14px;transition:color .25s ease;}
+  .module p{color:var(--slate);font-size:14.5px;line-height:1.65;transition:color .25s ease;}
+  .module .tag{
+    display:inline-block;margin-top:20px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--pulse);
+  }
+
+  /* ---------- REACH ---------- */
+  .reach{background:var(--navy);color:#fff;}
+  .reach .section-head h2{color:#fff;}
+  .reach .section-head p{color:rgba(255,255,255,.55);}
+  .reach-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);}
+  .country{background:var(--navy-2);padding:34px 20px;text-align:left;}
+  .country .flag-dot{width:8px;height:8px;border-radius:50%;background:var(--pulse);margin-bottom:16px;}
+  .country h4{color:#fff;font-size:16px;font-family:var(--body);font-weight:600;}
+  .country span{display:block;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.45);margin-top:6px;text-transform:uppercase;letter-spacing:.04em;}
+
+  /* ---------- TRAINING BAND ---------- */
+  .band{
+    background:linear-gradient(100deg,var(--pulse),#ff7a54);
+    color:#fff;padding:80px 0;
+  }
+  .band-inner{display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap;}
+  .band h2{color:#fff;font-size:clamp(26px,3vw,38px);max-width:520px;}
+  .band p{color:rgba(255,255,255,.85);margin-top:12px;max-width:460px;font-size:15px;}
+  .band .btn-ghost{border-color:rgba(255,255,255,.6);}
+  .band .btn-ghost:hover{background:rgba(255,255,255,.14);}
+
+  /* ---------- CONTACT ---------- */
+  .contact{background:#fff;}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;}
+  .office{border-top:1px solid var(--line);padding-top:24px;}
+  .office h4{font-size:19px;margin-bottom:10px;}
+  .office p{color:var(--slate);font-size:14.5px;line-height:1.7;}
+  .office a{color:var(--teal);font-family:var(--mono);font-size:13px;display:inline-block;margin-top:10px;}
+  .social-row{display:flex;gap:14px;margin-top:30px;}
+  .social-row a{
+    width:40px;height:40px;border:1px solid var(--line);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;
+    transition:all .2s ease;
+  }
+  .social-row a:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--navy);color:rgba(255,255,255,.55);padding:56px 0 28px;border-top:1px solid var(--line-dark);}
+  .foot-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;padding-bottom:40px;border-bottom:1px solid var(--line-dark);}
+  .foot-brand{max-width:340px;}
+  .foot-brand .brand{color:#fff;margin-bottom:14px;}
+  .foot-brand p{font-size:13.5px;line-height:1.7;color:rgba(255,255,255,.45);}
+  .foot-links{display:flex;gap:64px;flex-wrap:wrap;}
+  .foot-col h5{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px;}
+  .foot-col a{display:block;font-size:13.5px;color:rgba(255,255,255,.7);margin-bottom:10px;}
+  .foot-col a:hover{color:var(--pulse);}
+  .foot-bottom{display:flex;justify-content:space-between;padding-top:24px;font-family:var(--mono);font-size:11.5px;flex-wrap:wrap;gap:12px;color:rgba(255,255,255,.35);}
+
+  @media(max-width:860px){
+    .navlinks,.nav-cta{display:none;}
+    .burger{display:flex;}
+    .vitals{grid-template-columns:1fr 1fr;}
+    .vitals .cell:nth-child(2n+1){padding-left:0;}
+    .vitals .cell:nth-child(2){border-left:1px solid var(--line-dark);padding-left:28px;}
+    .vitals .cell:nth-child(3){border-left:none;padding-left:0;border-top:1px solid var(--line-dark);padding-top:26px;}
+    .vitals .cell:nth-child(4){border-top:1px solid var(--line-dark);padding-top:26px;}
+    .about-grid{grid-template-columns:1fr;gap:48px;}
+    .modules{grid-template-columns:1fr;}
+    .module{border-right:none;border-bottom:1px solid var(--line);}
+    .reach-grid{grid-template-columns:repeat(2,1fr);}
+    .contact-grid{grid-template-columns:1fr;gap:48px;}
+    .section{padding:80px 0;}
+    .wrap{padding:0 22px;}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="nav">
+    <a href="#top" class="brand">
+      <svg class="mark" viewBox="0 0 26 26" fill="none"><path d="M13 2 3 7v6c0 6 4.2 9.6 10 11 5.8-1.4 10-5 10-11V7L13 2Z" stroke="#fff" stroke-width="1.4"/><path d="M8 13h3l1.4-3.6 2 6L15.5 13H18" stroke="#FF5A36" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      HES ASIA
+    </a>
+    <nav class="navlinks">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#reach">Reach</a>
+      <a href="#training">Training</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+    <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="blueprint"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow">HES ASIA SDN BHD — MEDICAL TECHNOLOGY PLANNING, EST. 2017</div>
+    <h1>We build the <em>foundations</em><br>healthcare runs on.</h1>
+    <p class="lede">From hospital design and equipment procurement to talent and training — HES Asia has spent three decades connecting Malaysia's healthcare industry with the world's medical technology.</p>
+    <div class="hero-actions">
+      <a href="#services" class="btn btn-primary">Explore our services</a>
+      <a href="#contact" class="btn btn-ghost">Talk to our team</a>
+    </div>
+  </div>
+  <div class="wrap" style="position:relative;">
+    <svg class="pulse-line" viewBox="0 0 1180 44" preserveAspectRatio="none">
+      <path d="M0 22 H420 L450 6 L478 40 L505 14 L525 22 H1180" />
+    </svg>
+    <div class="vitals">
+      <div class="cell"><div class="num">25<span>+</span></div><div class="label">Years of experience</div></div>
+      <div class="cell"><div class="num">30<span>+</span></div><div class="label">Healthcare projects &amp; consultancies</div></div>
+      <div class="cell"><div class="num">8</div><div class="label">Countries of partner reach</div></div>
+      <div class="cell"><div class="num">2030</div><div class="label">Malaysia hub target</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee" id="marquee">
+    <span><b>Malaysia</b> · United States · Netherlands · Sweden · Germany · China · Korea · Japan &nbsp; — &nbsp;</span>
+  </div>
+</div>
+
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">About HES Asia</div>
+        <h2 style="margin-top:16px;">Founded on engineering, built for healthcare's next decade.</h2>
+      </div>
+    </div>
+    <div class="about-grid">
+      <div class="about-copy">
+        <p>Established in March 2017, HES Asia was founded by a team of engineers with a shared drive to bring medical technology expertise to the world. Our story actually begins earlier — in 1995, offering technical and advisory services to private healthcare facilities across the Klang Valley.</p>
+        <p>Today, we work across three core sectors — Healthcare Recruitment, Project Consultancy, and Digital Solutions — to be the number one hub for medical solutions in Malaysia by 2030, and across ASEAN by 2035.</p>
+        <p>We focus on sharing our expertise and extensive network in the medical technology sector to deliver outstanding outcomes for our business partners across the healthcare industry.</p>
+      </div>
+      <div class="readouts">
+        <div class="readout"><div class="n">25<sup>+</sup></div><div class="l">Years of Experience</div></div>
+        <div class="readout"><div class="n">30<sup>+</sup></div><div class="l">Projects &amp; Equipment Consultancies</div></div>
+        <div class="readout"><div class="n">8</div><div class="l">Global Technology Partners</div></div>
+        <div class="readout"><div class="n">5<sup>+</sup></div><div class="l">Countries of Project Exposure</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">What we do</div>
+        <h2 style="margin-top:16px;">Three disciplines, one continuum of care.</h2>
+      </div>
+      <p>Encompassed in three core sectors, our team offers a comprehensive solution to complement the endeavors of HESA's business partners.</p>
+    </div>
+    <div class="modules">
+      <div class="module">
+        <div class="mod-index">01 / RECRUITMENT</div>
+        <h3>Healthcare Recruitment</h3>
+        <p>Forging trustworthy connections between medical partners, healthcare establishments, and talented candidates — with tailor-made upskilling and career coaching for every hire.</p>
+        <span class="tag">Talent &amp; training →</span>
+      </div>
+      <div class="module">
+        <div class="mod-index">02 / CONSULTANCY</div>
+        <h3>Project Consultancy</h3>
+        <p>Full-scope consultation from healthcare design and construction drawing to equipment planning, procurement, and site preparation — supported at every phase.</p>
+        <span class="tag">Design to delivery →</span>
+      </div>
+      <div class="module">
+        <div class="mod-index">03 / DIGITAL</div>
+        <h3>Digital Solutions</h3>
+        <p>Software development, small ERP systems, e-commerce and automation built to streamline operations, cut manpower needs, and save time and cost for healthcare partners.</p>
+        <span class="tag">Systems &amp; software →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reach" id="reach">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Regional footprint</div>
+        <h2 style="margin-top:16px;">Healthcare project exposure across the region.</h2>
+      </div>
+      <p>More than five countries of on-the-ground healthcare project experience, alongside eight technology partner nations worldwide.</p>
+    </div>
+    <div class="reach-grid">
+      <div class="country"><div class="flag-dot"></div><h4>Malaysia</h4><span>Home base</span></div>
+      <div class="country"><div class="flag-dot"></div><h4>Indonesia</h4><span>Project exposure</span></div>
+      <div class="country"><div class="flag-dot"></div><h4>Thailand</h4><span>Project exposure</span></div>
+      <div class="country"><div class="flag-dot"></div><h4>Bangladesh</h4><span>Project exposure</span></div>
+      <div class="country"><div class="flag-dot"></div><h4>Papua New Guinea</h4><span>Project exposure</span></div>
+      <div class="country"><div class="flag-dot"></div><h4>Saudi Arabia</h4><span>Project exposure</span></div>
+      <div class="country"><div class="flag-dot"></div><h4>United States</h4><span>Technology partner</span></div>
+      <div class="country"><div class="flag-dot"></div><h4>Germany</h4><span>Technology partner</span></div>
+      <div class="country"><div class="flag-dot"></div><h4>Japan</h4><span>Technology partner</span></div>
+      <div class="country"><div class="flag-dot"></div><h4>Korea</h4><span>Technology partner</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="training">
+  <div class="wrap band-inner">
+    <div>
+      <div class="eyebrow" style="color:rgba(255,255,255,.85);">Training &amp; talent</div>
+      <h2 style="margin-top:14px;">Equip your biomedical personnel for what's next.</h2>
+      <p>From reskilling programmes to career coaching, our training arm keeps talent — and the equipment they work with — ready for the field.</p>
+    </div>
+    <a href="#contact" class="btn btn-ghost">Register your interest</a>
+  </div>
+</section>
+
+<section class="section contact" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Get in touch</div>
+        <h2 style="margin-top:16px;">Let's plan your next healthcare project.</h2>
+      </div>
+      <p>Reach us at our Kuala Lumpur office, or find us on social media — we typically respond within one business day.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="office">
+        <h4>Headquarters — Kuala Lumpur</h4>
+        <p>Ground Floor, Block A, Biomedical Engineering Department,<br>Faculty of Engineering, University Malaya,<br>50603 Kuala Lumpur, Malaysia</p>
+        <a href="https://www.google.com/maps/place/HES+Asia+Sdn+Bhd/@3.1188255,101.655401,15z">View on map →</a>
+        <div class="social-row">
+          <a href="https://www.facebook.com/Hes-Asia-Sdn-Bhd-109159635214232/" aria-label="Facebook">FB</a>
+          <a href="https://instagram.com/hesasiastl" aria-label="Instagram">IG</a>
+        </div>
+      </div>
+      <div class="office">
+        <h4>Start a conversation</h4>
+        <p>Whether it's hospital planning, equipment procurement, staffing, or a digital system for your facility — tell us about the project and our team will follow up.</p>
+        <a href="mailto:info@hesa.my">info@hesa.my →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="brand">HES ASIA</div>
+        <p>A one-stop destination for hospital designing and planning, and for procuring, maintaining, and training on medical equipment and technology.</p>
+      </div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <h5>Company</h5>
+          <a href="#about">About Us</a>
+          <a href="#services">Strengths &amp; Services</a>
+          <a href="#training">Training</a>
+        </div>
+        <div class="foot-col">
+          <h5>Resources</h5>
+          <a href="#">Products</a>
+          <a href="#">Past Activities</a>
+          <a href="#">Registration</a>
+        </div>
+        <div class="foot-col">
+          <h5>Legal</h5>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 HES Asia Sdn Bhd (HESA). All rights reserved.</span>
+      <span>Kuala Lumpur, Malaysia</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const burger = document.querySelector('.burger');
+  const navlinks = document.querySelector('.navlinks');
+  const navcta = document.querySelector('.nav-cta');
+  burger.addEventListener('click', () => {
+    const open = navlinks.style.display === 'flex';
+    navlinks.style.cssText = open ? 'display:none;' : 'display:flex;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:#0B1F3A;padding:20px 32px;gap:18px;border-bottom:1px solid rgba(255,255,255,.14);';
+    navcta.style.cssText = open ? 'display:none;' : 'display:inline-flex;margin:0 32px 20px;';
+  });
+
+  // Count-up animation for readouts / vitals
+  const animateNum = (el, target, suffix) => {
+    let start = 0; const dur = 1200; const t0 = performance.now();
+    const step = (t) => {
+      const p = Math.min((t - t0) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(eased * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const targets = document.querySelectorAll('.num, .readout .n');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        if (el.dataset.done) return;
+        el.dataset.done = "1";
+        const raw = el.textContent.trim();
+        const match = raw.match(/^(\d+)(.*)$/);
+        if (match) animateNum(el, parseInt(match[1]), match[2]);
+        io.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  targets.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
