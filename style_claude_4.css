@@ -134,22 +134,7 @@
   .module p{color:var(--slate);font-size:14.5px;line-height:1.65;transition:color .25s ease;}
 
   /* ---------- TIMELINE / PROJECT EXPOSURE ---------- */
-  .exposure{background:#fff;}
-  .tabs{display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
-  .tab{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;padding:10px 18px;border:1px solid var(--line);border-radius:20px;color:var(--slate);cursor:pointer;transition:all .2s ease;background:none;}
-  .tab.active{background:var(--navy);border-color:var(--navy);color:#fff;}
-  .filters{display:flex;gap:8px;flex-wrap:wrap;margin:26px 0 40px;}
-  .filter{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:7px 14px;border-radius:14px;background:var(--paper);color:var(--slate);cursor:pointer;border:1px solid var(--line);transition:all .2s ease;}
-  .filter.active{background:var(--red);color:#fff;border-color:var(--red);}
-  .timeline-view{display:none;}
-  .timeline-view.active{display:block;}
-  .t-list{border-top:1px solid var(--line);}
-  .t-row{display:grid;grid-template-columns:110px 160px 1fr;gap:24px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line);transition:background .2s ease;}
-  .t-row:hover{background:var(--paper);}
-  .t-year{font-family:var(--mono);color:var(--red);font-size:14px;}
-  .t-cat{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--blue-accent);padding:5px 10px;border-radius:12px;display:inline-block;width:fit-content;}
-  .t-name{font-size:15.5px;font-weight:500;color:var(--navy);}
-  .t-note{font-family:var(--mono);font-size:11px;color:var(--slate);margin-top:24px;}
+
 
   /* ---------- PORTFOLIO ---------- */
   .portfolio{background:var(--paper);}
@@ -200,11 +185,14 @@
   .profile .wrap{max-width:1280px;padding:0 40px;}
   .profile-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:90px;align-items:start;}
   .profile-copy p{color:rgba(255,255,255,.65);font-size:15.5px;margin:18px 0 30px;max-width:540px;}
-  .pdf-card{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.06);border:1px solid var(--line-dark);padding:20px 22px;border-radius:6px;max-width:520px;}
+  .pdf-card{background:rgba(255,255,255,.06);border:1px solid var(--line-dark);border-radius:6px;max-width:520px;}
+  .pdf-dl{display:flex;align-items:center;gap:16px;width:100%;padding:20px 22px;background:none;border:none;text-align:left;cursor:pointer;transition:background .2s ease;border-radius:6px;}
+  .pdf-dl:hover{background:rgba(255,255,255,.06);}
   .pdf-icon{width:40px;height:40px;background:var(--red);border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:#fff;flex:0 0 auto;font-weight:600;}
-  .pdf-card div h5{font-size:14.5px;margin-bottom:3px;}
-  .pdf-card div p{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.5);margin:0;}
-  .pdf-dl{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--blue-light);white-space:nowrap;}
+  .pdf-info{display:flex;flex-direction:column;gap:3px;flex:1 1 auto;min-width:0;}
+  .pdf-title{font-size:14.5px;font-weight:600;color:#fff;}
+  .pdf-meta{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.5);}
+  .pdf-label{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--blue-light);white-space:nowrap;flex:0 0 auto;}
   .partners-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--line-dark);} 
   .partner{background:var(--navy-2);padding:26px 18px;display:flex;align-items:center;justify-content:center;min-height:84px;}
   .partner span{font-family:var(--serif);font-weight:600;font-size:14px;color:rgba(255,255,255,.78);text-align:center;letter-spacing:.01em;}
@@ -291,7 +279,6 @@
     .form-row{grid-template-columns:1fr;}
     .section{padding:72px 0;}
     .wrap{padding:0 20px;}
-    .t-row{grid-template-columns:1fr;gap:8px;padding:18px 0;}
   }
 
 /* Mobile nav open state (controlled by script toggling .open on .nav) */
@@ -331,3 +318,144 @@
   .hero-band{padding:8px 0;}
   .hero-band-inner{font-size:13px;letter-spacing:.06em;padding:0 14px;}
 }
+
+
+/* PDF Modal Overlay */
+.pdf-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(10, 15, 29, 0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  padding: 20px;
+}
+
+.pdf-modal-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Modal Box */
+.pdf-modal-container {
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 1000px;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transform: translateY(15px);
+  transition: transform 0.25s ease;
+}
+
+.pdf-modal-overlay.is-open .pdf-modal-container {
+  transform: translateY(0);
+}
+
+/* Modal Header */
+.pdf-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: #1f293d;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pdf-modal-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.pdf-modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-modal-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #2563eb;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.btn-modal-download:hover {
+  background: #1d4ed8;
+}
+
+.pdf-modal-close {
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.pdf-modal-close:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Modal Viewer Frame */
+.pdf-modal-body {
+  flex: 1;
+  width: 100%;
+  background: #000;
+}
+
+.pdf-modal-body iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.pdf-modal-body img {
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+/* Make credential cards interactive */
+.cred-card {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.cred-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(18, 32, 46, 0.08);
+  border-color: var(--blue-accent);
+}
+
+.cred-card:focus {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+.cred-card:focus:not(:focus-visible) {
+  outline: none;
+}
+
