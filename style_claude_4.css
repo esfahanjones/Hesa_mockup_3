@@ -1650,6 +1650,8 @@ footer {
 }
 
 .marquee span {
+  display: inline-block;
+  padding-right: 60px; /* Space between loops (replaces gap to keep -50% translation mathematically exact) */
   font-family: var(--mono);
   font-size: 14px;
   letter-spacing: .08em;

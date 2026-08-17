@@ -53,18 +53,18 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Company profile PDF trigger
+// Company profile & credential triggers
 document.querySelectorAll('.pdf-dl[data-src], .cred-card[data-src]').forEach(element => {
   // Click handler
   element.addEventListener('click', () => {
     openPdfModal(element.dataset.src, element.dataset.title);
   });
-});
 
-// Keyboard accessibility (Enter / Space key)
+  // Keyboard accessibility (Enter / Space key)
   element.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       openPdfModal(element.dataset.src, element.dataset.title);
     }
   });
+});
