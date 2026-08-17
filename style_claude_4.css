@@ -272,7 +272,7 @@ header {
 }
 
 .dropdown-menu ul {
-  background: #fff;
+  background: #ffffff;
   border: 1px solid var(--line);
   border-radius: 4px;
   box-shadow: 0 12px 30px rgba(18, 32, 46, .1);
@@ -415,11 +415,15 @@ header {
 }
 
 /* ---------- SERVICE CAROUSEL PANELS ---------- */
+/* Update your existing .service-panels rule */
 .service-panels {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  background: var(--navy-2); /* Fix: Covers any sub-pixel grid gaps with dark blue */
+  overflow: hidden;
 }
 
+/* Update your existing .panel rule */
 .panel {
   position: relative;
   min-height: 340px;
@@ -427,7 +431,10 @@ header {
   align-items: flex-end;
   padding: 32px;
   overflow: hidden;
-  border-right: 1px solid rgba(255, 255, 255, .08);
+  border-right: 1px solid var(--line-dark);
+  background: var(--navy-2); /* Fix: Prevents white leaks during hover/scale transforms */
+  transition: transform .28s ease, box-shadow .28s ease;
+  will-change: transform;
 }
 
 .panel:last-child {
@@ -1079,9 +1086,10 @@ header {
 
 .partners-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 2px;
   background: var(--line-dark);
+  align-self: center;
 }
 
 .partner {
@@ -1091,6 +1099,7 @@ header {
   align-items: center;
   justify-content: center;
   min-height: 84px;
+  
 }
 
 .partner span {
