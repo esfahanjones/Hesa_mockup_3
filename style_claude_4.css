@@ -379,7 +379,7 @@ header {
   position: relative;
   border-top: 1px solid var(--line-dark);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   margin-top: 56px;
 }
 
@@ -538,6 +538,25 @@ header {
 
 .panel:hover .btn-primary {
   background: var(--red-bright);
+}
+
+/* Service Panels - All text white */
+.service-panels .panel-content {
+  color: #ffffff;
+}
+
+.service-panels .panel-content .idx {
+  color: #ffffff;
+  opacity: 0.8; /* Keeps index legible but subtle, or set to 1 for 100% white */
+}
+
+.service-panels .panel-content h3 {
+  color: #ffffff;
+}
+
+.service-panels .panel-content p {
+  color: #ffffff;
+  opacity: 0.9; /* Keeps description soft and clear, or set to 1 for solid white */
 }
 
 /* ---------- SECTION HEADS ---------- */
@@ -940,6 +959,129 @@ header {
   line-height: 1.7;
 }
 
+.modal-role {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--blue-accent);
+  background: rgba(62, 111, 160, .08);
+  border: 1px solid rgba(62, 111, 160, .25);
+  padding: 5px 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+/* ---------- OUR PEOPLE SLIDER ---------- */
+.team-slider {
+  background: linear-gradient(100deg, var(--red), #8f2c22);
+}
+
+.team-slider .eyebrow {
+  color: rgba(255, 255, 255, .85);
+}
+
+.team-slider .section-head h2 {
+  color: #fff;
+}
+
+.team-slider .section-head p {
+  color: rgba(255, 255, 255, .75);
+}
+
+.slider-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.slider-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 4px 2px 14px;
+  flex: 1;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.slider-track::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  flex: 0 0 200px;
+  scroll-snap-align: start;
+  text-align: left;
+}
+
+.slide-photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .25);
+  margin-bottom: 14px;
+}
+
+.slide-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slide h4 {
+  font-size: 15px;
+  color: #fff;
+  margin-bottom: 3px;
+}
+
+.slide span {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(255, 255, 255, .7);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.slider-arrow {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .3);
+  background: rgba(255, 255, 255, .08);
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s ease;
+}
+
+.slider-arrow:hover {
+  background: #fff;
+  color: var(--red);
+  border-color: #fff;
+}
+
+@media (max-width: 640px) {
+  .slide {
+    flex-basis: 160px;
+  }
+
+  .slider-arrow {
+    display: none;
+  }
+}
+
 /* ---------- TEAM ---------- */
 .team {
   background: #fff;
@@ -1086,7 +1228,7 @@ header {
 
 .partners-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2px;
   background: var(--line-dark);
   align-self: center;
@@ -1118,8 +1260,15 @@ header {
 
 .cred-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+  
+}
+/* Stack cards in a single column on smaller screens */
+@media (max-width: 768px) {
+  .cred-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .cred-card {
@@ -1196,15 +1345,17 @@ header {
 .reach-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  background: var(--line-dark);
-  border: 1px solid var(--line-dark);
+  border-top: 1px solid var(--line-dark);
+  border-left: 1px solid var(--line-dark);
 }
 
 .country {
   background: var(--navy-2);
   padding: 30px 18px;
   text-align: left;
+  box-shadow:
+    inset -1px 0 0 var(--line-dark),
+    inset 0 -1px 0 var(--line-dark);
 }
 
 .flag-dot {
@@ -1230,6 +1381,9 @@ header {
   margin-top: 5px;
   text-transform: uppercase;
   letter-spacing: .04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ---------- TRAINING BAND ---------- */
@@ -1269,6 +1423,21 @@ header {
   display: grid;
   grid-template-columns: .85fr 1.15fr;
   gap: 60px;
+}
+
+.map-embed {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.map-embed iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
 }
 
 .contact-info h3 {
