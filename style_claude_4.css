@@ -1035,7 +1035,7 @@ header {
 }
 
 .person-photo {
-  width: 100%;
+  width: 50%;
   aspect-ratio: 1 / 1;
   border-radius: 8px;
   overflow: hidden;
