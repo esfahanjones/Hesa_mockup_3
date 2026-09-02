@@ -1367,12 +1367,14 @@ header {
   grid-template-columns: repeat(3, 3fr);
   border-top: 1px solid var(--line-dark);
   border-left: 1px solid var(--line-dark);
+  min-width: 0;
 }
 
 .country {
   background: var(--navy-2);
   padding: 30px 18px;
   text-align: left;
+  min-width: 0;
   box-shadow:
     inset -1px 0 0 var(--line-dark),
     inset 0 -1px 0 var(--line-dark);
@@ -1401,9 +1403,8 @@ header {
   margin-top: 5px;
   text-transform: uppercase;
   letter-spacing: .04em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
 /* ---------- TRAINING BAND ---------- */
@@ -1797,6 +1798,10 @@ footer {
     padding-left: 0;
     padding-top: 12px;
     border-top: 1px solid rgba(255, 255, 255, .06);
+  }
+
+  .reach-grid {
+    grid-template-columns: 1fr;
   }
 
   .nav {
