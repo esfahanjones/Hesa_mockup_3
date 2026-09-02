@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /Resource/certificates/
+Disallow: /Resource/c_profile/
+Disallow: /Resource/Compliance_doc/
+
+Sitemap: https://www.hesa.my/sitemap.xml

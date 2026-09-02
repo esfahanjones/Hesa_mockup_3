@@ -1,0 +1,55 @@
+# =====================================================
+# HES Asia — root .htaccess
+# Upload this to the SAME folder as index.html in cPanel
+# (usually public_html/ or public_html/yoursite/)
+# =====================================================
+
+# ---- 1. Force HTTPS ----
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ---- 2. Disable directory listing ----
+# Stops people from browsing e.g. /Resource/certificates/ and seeing
+# every file in the folder if there's no index.html there.
+Options -Indexes
+
+# ---- 3. Security headers ----
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+  # Content-Security-Policy: allows Google Fonts, Google Maps embed,
+  # and same-origin PDFs/images. Loosen only if something legitimate breaks.
+  Header always set Content-Security-Policy "default-src 'self'; \
+    img-src 'self' data:; \
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
+    font-src 'self' https://fonts.gstatic.com; \
+    frame-src https://www.google.com; \
+    script-src 'self'; \
+    object-src 'none'; \
+    base-uri 'self';"
+</IfModule>
+
+# ---- 4. Prevent PHP execution inside the Resource folder ----
+# Even though the site has no PHP today, this stops any uploaded/injected
+# .php file in Resource/ from ever being executed by the server.
+<IfModule mod_php7.c>
+  <Directory "Resource">
+    php_flag engine off
+  </Directory>
+</IfModule>
+<FilesMatch "\.ph(p[3457]?|t|tml)$">
+  <If "%{REQUEST_URI} =~ m#^/Resource/#">
+    Require all denied
+  </If>
+</FilesMatch>
+
+# ---- 5. Block access to this file and any hidden/system files ----
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
