@@ -73,6 +73,7 @@ a {
   display: inline-block;
 }
 
+
 h1,
 h2,
 h3,
@@ -423,7 +424,8 @@ header {
 .service-panels {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  background: var(--navy-2); /* Fix: Covers any sub-pixel grid gaps with dark blue */
+  background: var(--navy-2);
+  /* Fix: Covers any sub-pixel grid gaps with dark blue */
   overflow: hidden;
 }
 
@@ -436,7 +438,8 @@ header {
   padding: 32px;
   overflow: hidden;
   border-right: 1px solid var(--line-dark);
-  background: var(--navy-2); /* Fix: Prevents white leaks during hover/scale transforms */
+  background: var(--navy-2);
+  /* Fix: Prevents white leaks during hover/scale transforms */
   transition: transform .28s ease, box-shadow .28s ease;
   will-change: transform;
 }
@@ -551,7 +554,8 @@ header {
 
 .service-panels .panel-content .idx {
   color: #ffffff;
-  opacity: 0.8; /* Keeps index legible but subtle, or set to 1 for 100% white */
+  opacity: 0.8;
+  /* Keeps index legible but subtle, or set to 1 for 100% white */
 }
 
 .service-panels .panel-content h3 {
@@ -560,7 +564,8 @@ header {
 
 .service-panels .panel-content p {
   color: #ffffff;
-  opacity: 0.9; /* Keeps description soft and clear, or set to 1 for solid white */
+  opacity: 0.9;
+  /* Keeps description soft and clear, or set to 1 for solid white */
 }
 
 /* ---------- SECTION HEADS ---------- */
@@ -803,6 +808,7 @@ header {
   padding: 4px 9px;
   border-radius: 10px;
 }
+
 .proj-status-completed {
   position: absolute;
   top: 12px;
@@ -984,6 +990,7 @@ header {
 
 .team-section .eyebrow {
   color: rgba(255, 255, 255, .85);
+
 }
 
 .team-section .section-head h2 {
@@ -993,6 +1000,7 @@ header {
 .team-section .section-head p {
   color: rgba(255, 255, 255, .75);
 }
+
 
 .team-switch {
   display: inline-flex;
@@ -1252,7 +1260,7 @@ header {
   align-items: center;
   justify-content: center;
   min-height: 84px;
-  
+
 }
 
 .partner span {
@@ -1273,8 +1281,9 @@ header {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  
+
 }
+
 /* Stack cards in a single column on smaller screens */
 @media (max-width: 768px) {
   .cred-grid {
@@ -1833,7 +1842,8 @@ footer {
 
 .marquee span {
   display: inline-block;
-  padding-right: 60px; /* Space between loops (replaces gap to keep -50% translation mathematically exact) */
+  padding-right: 60px;
+  /* Space between loops (replaces gap to keep -50% translation mathematically exact) */
   font-family: var(--mono);
   font-size: 14px;
   letter-spacing: .08em;
