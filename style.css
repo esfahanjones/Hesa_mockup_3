@@ -48,6 +48,17 @@ a {
   text-decoration: none;
 }
 
+#project_exposure {
+  padding-top: 100px !important;   /* Pushes content down under the header */
+  margin-top: -100px !important;  /* Pulls section boundaries back up */
+}
+
+#client {
+  padding-top: 100px !important;   /* Pushes content down under the header */
+  margin-top: -100px !important;  /* Pulls section boundaries back up */
+}
+
+
 .wrap {
   max-width: 1180px;
   margin: 0 auto;
