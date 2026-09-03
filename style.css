@@ -369,7 +369,7 @@ header {
   font-family: var(--body);
   font-size: 17.5px;
   color: rgba(255, 255, 255, .68);
-  max-width: 520px;
+  max-width: 580px;
   margin-bottom: 36px;
 }
 
@@ -1531,7 +1531,7 @@ header {
 
 .contact-gallery {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin-top: 16px;
   min-width: 0;
@@ -2071,4 +2071,32 @@ footer {
 
 .cred-card:focus:not(:focus-visible) {
   outline: none;
+}
+
+/* Lead Capture Modal Styles */
+.lead-modal-container {
+  background: #ffffff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.lead-modal-body {
+  padding: 24px;
+}
+
+.lead-desc {
+  font-size: 14px;
+  color: var(--slate);
+  margin-bottom: 20px;
+}
+
+.lead-submit-btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: 10px;
 }
