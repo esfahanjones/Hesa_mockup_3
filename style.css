@@ -48,8 +48,9 @@ a {
   text-decoration: none;
 }
 
-#project_exposure {
+#team_exposure {
   padding-top: 100px !important;   /* Pushes content down under the header */
+  padding-bottom: 100px !important; /* Adds extra space at the bottom of the section */
   margin-top: -100px !important;  /* Pulls section boundaries back up */
 }
 
